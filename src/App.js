@@ -1,21 +1,24 @@
 import {Header} from "./components/Header";
 import {HomePage} from "./pages/HomePage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Provider} from "react-redux";
-import {store} from "./store";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "./theme";
+import {StoreProvider} from "./store";
 
 function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <StoreProvider>
+        <ThemeProvider theme={theme}>
+          <div className="App">
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+          </div>
+        </ThemeProvider>
+      </StoreProvider>
+    </BrowserRouter>
   );
 }
 
