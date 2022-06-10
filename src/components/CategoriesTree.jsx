@@ -11,6 +11,7 @@ import {Flex} from "./Flex";
 import styled from "@emotion/styled";
 import {COLORS} from "../constants/colors";
 import {withStopPropagation} from "../utils/withStopPropagation";
+import {OverflowTooltip} from "./OverflowTooltip";
 
 const Content = forwardRef(function Content(props, ref) {
   const {
@@ -35,13 +36,14 @@ const Content = forwardRef(function Content(props, ref) {
   const icon = iconProp || expansionIcon || displayIcon;
 
   return (
-    <div
+    <Flex
       className={clsx(className, classes.root, {
         [classes.expanded]: expanded,
         [classes.selected]: selected,
         [classes.focused]: focused,
         [classes.disabled]: disabled,
       })}
+      minHeight={40}
       onClick={() => handleSelection(nodeId)}
       ref={ref}
     >
@@ -55,7 +57,7 @@ const Content = forwardRef(function Content(props, ref) {
       >
         {label}
       </Typography>
-    </div>
+    </Flex>
   );
 });
 
@@ -67,12 +69,12 @@ const Count = styled.div`
   font-size: 12px;
   text-align: center;
   line-height: 24px;
-  background: ${COLORS.lightGray};
+  background: ${COLORS.gray.lighter};
 `
 
 const Label = ({ name, count }) => (
-  <Flex sx={{ justifyContent: 'space-between' }}>
-    <span>{name}</span>
+  <Flex justifyContent="space-between" alignItems="center">
+    <OverflowTooltip text={name} />
     <Count>
       {count}
     </Count>

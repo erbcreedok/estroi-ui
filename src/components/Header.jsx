@@ -5,7 +5,7 @@ import {BaseLink} from "./BaseLink";
 
 const Wrapper = styled.div`
   height: 60px;
-  background: ${COLORS.gray};
+  background: ${COLORS.gray.light};
 `
 const StyledContainer = styled(Container)`
   display: flex;

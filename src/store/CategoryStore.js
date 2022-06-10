@@ -1,6 +1,6 @@
 import {makeAutoObservable, reaction} from "mobx";
 import {fetchCategories} from "../fetchers/fetchCategories";
-import {findCategoryPath} from "../utils/categoryUtils";
+import {findCategory, findCategoryPath} from "../utils/categoryUtils";
 
 export class CategoryStore {
   loading = false
@@ -16,6 +16,10 @@ export class CategoryStore {
     reaction(() => [this.selectedId, this.categories], ([id, categories]) => {
       this.expanded = findCategoryPath(id, categories).slice(0, -1).map((item) => `${item.id}`)
     })
+  }
+
+  get currentCategory() {
+    return findCategory(this.selectedId, this.categories)
   }
 
   *fetchCategories() {

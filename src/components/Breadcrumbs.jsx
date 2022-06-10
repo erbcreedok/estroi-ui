@@ -4,11 +4,11 @@ import {Link} from "react-router-dom";
 
 export const Text = styled.span`
   font-size: 20px;
-  color: ${COLORS.darkerGray};
+  color: ${COLORS.gray.darker};
 `
 export const Breadcrumb = styled(Link)`
   font-size: 20px;
-  color: ${COLORS.darkerGray};
+  color: ${COLORS.gray.darker};
 `
 export const Breadcrumbs = ({ links, ...props }) => {
   return (

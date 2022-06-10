@@ -7,7 +7,7 @@ export const CategoryCount = styled.span`
   height: 32px;
   align-items: center;
   justify-content: center;
-  background: ${COLORS.darkGray};
+  background: ${COLORS.gray.default};
   border-radius: 16px;
 `
 
@@ -27,12 +27,12 @@ export const CategoryItem = styled.div`
   height: 60px;
   box-sizing: border-box;
   align-items: center;
-  background: ${COLORS.lightGray};
+  background: ${COLORS.gray.lighter};
   border-radius: 4px;
   padding: 10px;
   transition: .15s;
   &:hover {
-    background: ${COLORS.gray};
+    background: ${COLORS.gray.gray};
     transition: 0s;
   }
 `

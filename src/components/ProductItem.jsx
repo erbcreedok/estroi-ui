@@ -1,4 +1,4 @@
-import {GrayBox} from "./common/GrayBox";
+import {GrayBox} from "./GrayBox";
 import styled from "@emotion/styled";
 
 const Wrapper = styled(GrayBox)`
