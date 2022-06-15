@@ -1,6 +1,7 @@
-import {makeAutoObservable, reaction} from "mobx";
+import {autorun, makeAutoObservable} from "mobx";
 import {fetchCategories} from "../fetchers/fetchCategories";
 import {findCategory, findCategoryPath} from "../utils/categoryUtils";
+import {routerService} from "../services/routerService";
 
 export class CategoryStore {
   loading = false
@@ -13,13 +14,35 @@ export class CategoryStore {
     this.store = store
     makeAutoObservable(this, { store: false })
 
-    reaction(() => [this.selectedId, this.categories], ([id, categories]) => {
-      this.expanded = findCategoryPath(id, categories).slice(0, -1).map((item) => `${item.id}`)
+    autorun(() => {
+      this.expanded = findCategoryPath(this.selectedId, this.categories).slice(0, -1).map((item) => `${item.id}`)
     })
   }
 
   get currentCategory() {
     return findCategory(this.selectedId, this.categories)
+  }
+
+  get currentCategoryList() {
+    if (!this.currentCategory?.parentId) {
+      return this.categories
+    }
+    if (this.currentCategory?.childCategories) {
+      return this.currentCategory.childCategories
+    }
+    const parent = findCategory(this.currentCategory.parentId, this.categories)
+    return parent.childCategories
+  }
+
+  get breadcrumbs() {
+    return [
+      { to: routerService.home(), label: 'Главная' },
+      { to: routerService.catalog(), label: 'Каталог' },
+      ...findCategoryPath(this.selectedId, this.categories).map((category) => ({
+        to: routerService.catalog({ categoryId: category.id }),
+        label: category.name
+      })),
+    ]
   }
 
   *fetchCategories() {

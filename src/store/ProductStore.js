@@ -1,23 +1,21 @@
 import {makeAutoObservable} from "mobx";
-import {fetchProducts} from "../fetchers/fetchProducts";
+import {fetchProduct} from "../fetchers/fetchProduct";
 
 export class ProductStore {
-  products = []
-  pageable = null
+  product = null
   loading = false
   error = null
+
   constructor(store) {
     this.store = store
     makeAutoObservable(this, { store: false })
   }
 
-  *fetchProducts(categoryId) {
+  *fetchProduct(productId) {
     this.loading = true
     this.error = null
     try {
-      const response = yield fetchProducts(categoryId)
-      this.products = response.content
-      this.pageable = response.pageable
+      this.product = yield fetchProduct(productId)
     } catch (error) {
       this.error = error
     } finally {

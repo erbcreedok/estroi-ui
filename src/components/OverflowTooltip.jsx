@@ -1,5 +1,5 @@
 import {Box, Tooltip} from "@mui/material";
-import {Fragment, useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {useResizeDetector} from "react-resize-detector";
 
 export const OverflowTooltip = ({ text }) => {
@@ -29,10 +29,12 @@ export const OverflowTooltip = ({ text }) => {
     }
   }, [handleResize, text])
 
-  const Wrapper = visible ? Tooltip : Fragment
+  const Wrapper = ({ children }) => visible
+    ? <Tooltip hide={!visible} title={text} placement="right">{children}</Tooltip>
+    : children
 
   return (
-    <Wrapper hide={!visible} title={text} placement="top" >
+    <Wrapper>
       <Box ref={ref} textOverflow="ellipsis" whiteSpace="nowrap" overflow="hidden">
         {text}
       </Box>

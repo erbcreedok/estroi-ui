@@ -6,7 +6,8 @@ export const findCategory = (searchId, category) => {
       if (r) return r
     }
   } else {
-    if (!searchId || !category || category.id + '' === searchId + '') return category;
+    if (!searchId || !category) return;
+    if (category.id + '' === searchId + '') return category;
     return findCategory(searchId, category.childCategories)
   }
 }

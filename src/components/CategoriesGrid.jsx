@@ -1,31 +1,13 @@
-import styled from "@emotion/styled";
-import {CategoryCount, CategoryItem, CategoryTitle} from "./CategoryItem";
-import {BaseLink} from "./BaseLink";
+import {CategoryItem} from "./CategoryItem";
+import {Grid} from "@mui/material";
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: (1fr);
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(2, 50%);
-  }
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 33.33%);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 25%);
-  }
-  gap: 10px;
-`
-export const CategoriesGrid = ({ data }) => {
+export const CategoriesGrid = ({ categories, ...rest }) => {
   return (
-    <Grid>
-      {data.map((item) => (
-        <BaseLink key={item.id} to={`?categoryId=${item.id}`}>
-          <CategoryItem>
-            <CategoryTitle>{item.name}</CategoryTitle>
-            <CategoryCount>{item.childCount}</CategoryCount>
-          </CategoryItem>
-        </BaseLink>
+    <Grid container spacing="10px" columns={{ xs: 2, sm: 2, md: 2, lg: 3, xl: 4 }} {...rest}>
+      {categories.map((category) => (
+        <Grid item xs={2} sm={1} key={category.id} height="auto" maxWidth="100%">
+          <CategoryItem category={category} limit={3} height="100%" />
+        </Grid>
       ))}
     </Grid>
   )
