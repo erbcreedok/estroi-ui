@@ -4,6 +4,7 @@ const gray = {
   default: '#ABABAB',
   dark: '#8A8A8A',
   darker: '#636363',
+  darkest: '#363636',
 }
 const blue = {
   light: '#95bbec',

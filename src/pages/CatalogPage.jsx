@@ -1,11 +1,10 @@
 import {useCallback, useEffect} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {observer} from "mobx-react";
-import {Box, capitalize, Typography} from "@mui/material";
+import {Box, capitalize, Container, Typography} from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 
 import {useStore} from "../store";
-import {Container} from "../components/Container";
 import {Flex} from "../components/Flex";
 import {ProductsGrid} from "../components/ProductsGrid";
 import {CATEGORY_TREE_WIDTH} from "../constants/sizes";
@@ -36,7 +35,7 @@ export const CatalogPage = observer(() => {
   }, [navigate])
 
   return (
-    <Container my="20px">
+    <Container sx={{ my: '20px' }} maxWidth="xl">
       <Breadcrumbs links={breadcrumbs} my="20px" />
       <Typography display="flex" fontSize="32px" mb="10px" fontWeight="500" color={COLORS.gray.darker} alignItems="center">
         { currentCategory?.parentId && (
@@ -49,7 +48,7 @@ export const CatalogPage = observer(() => {
         { currentCategory ? capitalize(currentCategory.name) : 'Каталог' }
       </Typography>
       <Flex gap="20px">
-        <Flex sx={{ display: { xs: 'none', md: 'flex' }}} flexDirection="column" width={CATEGORY_TREE_WIDTH} minWidth={CATEGORY_TREE_WIDTH}>
+        <Flex sx={{ display: { xs: 'none', md: 'flex' } }} flexDirection="column" width={CATEGORY_TREE_WIDTH} minWidth={CATEGORY_TREE_WIDTH}>
           <CategoriesList
             categories={currentCategoryList}
             onChange={onCategoryChange}

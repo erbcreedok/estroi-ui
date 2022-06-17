@@ -1,7 +1,6 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import {COLORS} from "../constants/colors";
 import styled from "@emotion/styled";
-import {Container} from "./Container";
 import {Link} from "react-router-dom";
 
 const Wrapper = styled(Box)`
@@ -12,7 +11,7 @@ const Wrapper = styled(Box)`
 export const Footer = (props) => {
   return (
     <Wrapper {...props}>
-      <Container my={3}>
+      <Container sx={{ my: 3 }} maxWidth="xl">
         <Typography fontSize={18}>E-Stroi.kz</Typography>
         <Typography>"<Link to="/" target="_blank">E-stroi.kz</Link>" - онлайн каталог спецтоваров</Typography>
       </Container>

@@ -5,4 +5,8 @@ export const routerService = {
     return `/catalog${string ? `?${string.toString()}` : ''}`
   },
   product: (productId = ':productId') => `/product/${productId}`,
+  companies: (params) => {
+    const string = new URLSearchParams(params).toString();
+    return `/companies${string ? `?${string.toString()}` : ''}`
+  },
 }

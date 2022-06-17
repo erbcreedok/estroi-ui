@@ -9,6 +9,7 @@ import {ProductPage} from "./pages/ProductPage";
 import {CatalogPage} from "./pages/CatalogPage";
 import {Footer} from "./components/Footer";
 import {Flex} from "./components/Flex";
+import {CompaniesPage} from "./pages/CompaniesPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path={routerService.home()} element={<HomePage />} />
                 <Route path={routerService.catalog()} element={<CatalogPage />} />
                 <Route path={routerService.product()} element={<ProductPage />} />
+                <Route path={routerService.companies()} element={<CompaniesPage />} />
                 <Route path="/" element={<Navigate to={routerService.home()} />} />
               </Routes>
             </Box>
