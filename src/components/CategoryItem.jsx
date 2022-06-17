@@ -6,7 +6,6 @@ import {BaseLink} from "./BaseLink";
 import {routerService} from "../services/routerService";
 import {forwardRef, useCallback, useMemo, useRef, useState} from "react";
 import {Flex} from "./Flex";
-import {GrayBox} from "./GrayBox";
 
 
 export const CategoryCount = styled.div`
@@ -26,9 +25,10 @@ export const CategoryTitle = styled(TextOverflow)`
   display: block;
   flex-grow: 1;
   font-size: 20px;
+  margin-bottom: 20px;
 `
 
-export const CategoryBox = styled(GrayBox)`
+export const CategoryBox = styled(Box)`
   flex-direction: column;
   align-items: normal;
   cursor: pointer;
@@ -37,15 +37,26 @@ export const CategoryBox = styled(GrayBox)`
   overflow: hidden;
 `
 
+export const CategoryImage = styled.img`
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+`
+
 export const SubcategoryItem = styled(Box)`
   display: flex;
   cursor: pointer;
   box-sizing: border-box;
   background: white;
-  border-radius: 4px;
-  padding: 6px 10px;
+  padding: 6px 0;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px dashed ${COLORS.gray.light}; 
+  &:last-child {
+    border-bottom: none;
+  }
 `
 
 export const CategoryItem = forwardRef(({ category, limit, ...rest }, ref) => {
@@ -55,7 +66,7 @@ export const CategoryItem = forwardRef(({ category, limit, ...rest }, ref) => {
 
   const childCategories = useMemo(() =>
       category.childCategories?.map((item, index) => ({ ...item, hidden: limit < index + 1 }))
-  , [category.childCategories, limit, collapsed])
+  , [category.childCategories, limit])
 
   const visibleChildren = useMemo(() => childCategories?.filter((c) => !c.hidden), [childCategories])
   const hiddenChildren = useMemo(() => childCategories?.filter((c) => c.hidden), [childCategories])
@@ -63,17 +74,20 @@ export const CategoryItem = forwardRef(({ category, limit, ...rest }, ref) => {
   const diffLimit = useMemo(() => Math.max((category.childCategories ?? [])?.length - limit, 0), [limit, category.childCategories])
 
   const renderSubcategory = useCallback((subcategory) => (
-    <BaseLink key={subcategory.id} to={routerService.catalog({ categoryId: subcategory.id })} hoverUnderline>
-      <SubcategoryItem>
-        <TextOverflow whiteSpace="nowrap">{subcategory.name}</TextOverflow>
-        <CategoryCount>{subcategory.childCount}</CategoryCount>
-      </SubcategoryItem>
-    </BaseLink>
+    <SubcategoryItem key={subcategory.id} >
+      <TextOverflow whiteSpace="nowrap">
+        <BaseLink to={routerService.catalog({ categoryId: subcategory.id })} hoverUnderline>
+          {subcategory.name}
+        </BaseLink>
+      </TextOverflow>
+      <CategoryCount>{subcategory.childCount}</CategoryCount>
+    </SubcategoryItem>
   ),[])
 
   return (
     <CategoryBox {...rest} ref={containerRef}>
-      <BaseLink to={routerService.catalog({ categoryId: category.id })} hoverUnderline>
+      <BaseLink to={routerService.catalog({ categoryId: category.id })} hoverUnderline hoverColor>
+        {category.imgName && <CategoryImage src={category.imgName} alt="" /> }
         <CategoryTitle>{category.name}</CategoryTitle>
       </BaseLink>
       {visibleChildren?.map(renderSubcategory)}
@@ -83,7 +97,7 @@ export const CategoryItem = forwardRef(({ category, limit, ...rest }, ref) => {
           </Flex>
         </Slide>
       {!!diffLimit && (
-        <Typography color={COLORS.green.default} onClick={() => setCollapsed(!collapsed)}>
+        <Typography color={COLORS.green.default} mt="20px" onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? '+' : '-'} {diffLimit} категории
         </Typography>
       )}

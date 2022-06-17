@@ -49,7 +49,7 @@ export const CatalogPage = observer(() => {
         { currentCategory ? capitalize(currentCategory.name) : 'Каталог' }
       </Typography>
       <Flex gap="20px">
-        <Flex sx={{ display: { xs: 'none', md: 'flex' }}} flexDirection="column" width={CATEGORY_TREE_WIDTH} minWidth={CATEGORY_TREE_WIDTH} maxHeight="100vh" overflow="scroll">
+        <Flex sx={{ display: { xs: 'none', md: 'flex' }}} flexDirection="column" width={CATEGORY_TREE_WIDTH} minWidth={CATEGORY_TREE_WIDTH}>
           <CategoriesList
             categories={currentCategoryList}
             onChange={onCategoryChange}
