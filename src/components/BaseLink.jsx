@@ -4,7 +4,7 @@ import {css} from "@emotion/react";
 import PropTypes from "prop-types";
 import {COLORS} from "../constants/colors";
 
-export const BaseLink = styled(({ hoverUnderline, ...rest}) => <Link {...rest} />)`
+export const BaseLink = styled(({ hoverUnderline, hoverColor, ...rest}) => <Link {...rest} />)`
   text-decoration: inherit;
   color: inherit;
   ${({ hoverUnderline }) => hoverUnderline && css`
@@ -21,4 +21,5 @@ export const BaseLink = styled(({ hoverUnderline, ...rest}) => <Link {...rest} /
 
 BaseLink.propTypes = {
   hoverUnderline: PropTypes.bool,
+  hoverColor: PropTypes.bool,
 }

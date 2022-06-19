@@ -3,6 +3,7 @@ import {AppBar, Box, Container, IconButton, Toolbar, Typography, Menu, MenuItem 
 import MenuIcon from '@mui/icons-material/Menu';
 import {BaseLink} from "./BaseLink";
 import {routerService} from "../services/routerService";
+import {SearchProducts} from "./SearchProducts";
 
 const pages = [
   { label: 'Главная', route: routerService.home()},
@@ -81,6 +82,9 @@ export const Header = () => {
                 </Box>
               </BaseLink>
             ))}
+          </Box>
+          <Box width="300px">
+            <SearchProducts />
           </Box>
         </Toolbar>
       </Container>

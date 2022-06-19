@@ -1,16 +1,24 @@
 import {Grid, Pagination} from "@mui/material";
 import {NoDataPlaceholder} from "./NoDataPlaceholder";
 import {Flex} from "./Flex";
+import styled from "@emotion/styled";
+import {drawBorderedGrid} from "../utils/drawBorderedGrid";
+
+const gridColumns = { xs: 1, sm: 1, md: 2, lg: 4, xl: 4}
+
+const BorderedGrid = styled(Grid)`
+  ${drawBorderedGrid(gridColumns)}
+`
 
 export const ProductsGrid = ({ products, children, pageInfo, onPageChange }) => {
   return (
     products?.length > 0 ? (
       <>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} columns={gridColumns}>
           {products.map((product) => (
-            <Grid key={product.id} item xs={12} sm={12} md={6} lg={3}>
+            <BorderedGrid key={product.id} item xs={1}>
               { children(product) }
-            </Grid>
+            </BorderedGrid>
           ))}
         </Grid>
         {pageInfo?.totalPages > 1 && (

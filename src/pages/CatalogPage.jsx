@@ -61,8 +61,11 @@ export const CatalogPage = observer(() => {
             : (
               <ProductsGrid products={products} pageInfo={pageInfo} onPageChange={(e, page) => navigate(routerService.catalog({ categoryId, page: page - 1 }))}>
                 {(product) => (
-                  <BaseLink to={routerService.product(product.id)}>
-                    <ProductItem product={product} hoverable />
+                  <BaseLink
+                    to={routerService.product(product.id)}
+                    hoverColor
+                  >
+                    <ProductItem product={product} />
                   </BaseLink>
                 )}
               </ProductsGrid>

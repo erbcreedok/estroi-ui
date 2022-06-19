@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import {routerService} from "../services/routerService";
 import {BaseLink} from "./BaseLink";
 import {COLORS} from "../constants/colors";
-import {css} from "@emotion/react";
+import {drawBorderedGrid} from "../utils/drawBorderedGrid";
 
 const Image = styled.img`
   width: 100px;
@@ -23,19 +23,7 @@ const gridColumns = {
   xl: 8,
 }
 const BorderedGrid = styled(Grid)`
-  border: 1px solid ${COLORS.gray.lighter};
-  border-left: none;
-  border-top: none;
-  ${({ theme }) => Object.keys(gridColumns).map((breakpoint) => css`
-    ${theme.breakpoints.only(breakpoint)} {
-      &:nth-of-type(-n+${gridColumns[breakpoint]}) {
-        border-top: 1px solid ${COLORS.gray.lighter};
-      }
-      &:nth-of-type(${gridColumns[breakpoint]}n + 1) {
-        border-left: 1px solid ${COLORS.gray.lighter};
-      }
-    }
-  `)}
+  ${drawBorderedGrid(gridColumns)}
   img {
     transition: .15s;
   }

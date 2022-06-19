@@ -1,5 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import {fetchProducts} from "../fetchers/fetchProducts";
+import {searchProducts} from "../fetchers/searchProducts";
 
 export class ProductsStore {
   products = []
@@ -20,6 +21,24 @@ export class ProductsStore {
     this.error = null
     try {
       const response = yield fetchProducts(categoryId, page)
+      this.products = response.content
+      this.pageInfo = {
+        currentPage: response.number,
+        totalPages: response.totalPages,
+        totalElements: response.totalElements,
+      }
+    } catch (error) {
+      this.error = error
+    } finally {
+      this.loading = false
+    }
+  }
+
+  *searchProducts(name) {
+    this.loading = true
+    this.error = null
+    try {
+      const response = yield searchProducts({ name })
       this.products = response.content
       this.pageInfo = {
         currentPage: response.number,

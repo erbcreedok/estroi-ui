@@ -1,25 +1,12 @@
 import {CategoryItem} from "./CategoryItem";
 import {Grid} from "@mui/material";
 import styled from "@emotion/styled";
-import {COLORS} from "../constants/colors";
-import {css} from "@emotion/react";
+import {drawBorderedGrid} from "../utils/drawBorderedGrid";
 
 const gridColumns = { xs: 2, sm: 2, md: 2, lg: 3, xl: 3 }
 
 const BorderedGrid = styled(Grid)`
-  border: 1px solid ${COLORS.gray.lighter};
-  border-left: none;
-  border-top: none;
-  ${({ theme }) => Object.keys(gridColumns).map((breakpoint) => css`
-    ${theme.breakpoints.only(breakpoint)} {
-      &:nth-of-type(-n+${gridColumns[breakpoint]}) {
-        border-top: 1px solid ${COLORS.gray.lighter};
-      }
-      &:nth-of-type(${gridColumns[breakpoint]}n + 1) {
-        border-left: 1px solid ${COLORS.gray.lighter};
-      }
-    }
-  `)}
+  ${drawBorderedGrid(gridColumns)}
   padding: 20px;
 `
 
