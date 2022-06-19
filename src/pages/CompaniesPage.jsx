@@ -5,6 +5,7 @@ import {routerService} from "../services/routerService";
 import {Flex} from "../components/Flex";
 import {observer} from "mobx-react";
 import {COLORS} from "../constants/colors";
+import {BaseLink} from "../components/BaseLink";
 
 export const CompaniesPage = observer(() => {
   const { companyStore } = useStore()
@@ -41,17 +42,29 @@ export const CompaniesPage = observer(() => {
             <>
               <Typography component="h1" fontSize="32px" color={COLORS.gray.darkest}>{selected.name}</Typography>
               <Typography my={1} fontSize="14px" color={COLORS.gray.darker}>{selected.address}</Typography>
-              <Typography my={1} fontSize="14px" color={COLORS.gray.darker}>Дата регистрации {selected.regDT}</Typography>
-              <Box my={2}>
-                <Typography fontSize="24px">Контакты</Typography>
-                {selected.phone1 && <Typography fontSize="14px">Телефон: {selected.phone1}</Typography>}
-                {selected.phone2 && <Typography fontSize="14px">Телефон: {selected.phone2}</Typography>}
-                {selected.phone3 && <Typography fontSize="14px">Телефон: {selected.phone3}</Typography>}
-                {selected.phone4 && <Typography fontSize="14px">Телефон: {selected.phone4}</Typography>}
-                {selected.email1 && <Typography fontSize="14px">Эл. почта: {selected.email1}</Typography>}
-                {selected.email2 && <Typography fontSize="14px">Эл. почта: {selected.email2}</Typography>}
-                {selected.website && <Typography fontSize="14px">Вебсайт: {selected.website}</Typography>}
-              </Box>
+              <Typography my={1} fontSize="14px" color={COLORS.gray.darker}>Дата регистрации: {selected.regDT}</Typography>
+              <Flex gap={2}>
+                <Box my={2} sx={{ width: { xs: '100%', sm: '30%' }}}>
+                  <Typography fontSize="24px">Контакты</Typography>
+                  {selected.phone1 && <Typography fontSize="14px">Телефон: {selected.phone1}</Typography>}
+                  {selected.phone2 && <Typography fontSize="14px">Телефон: {selected.phone2}</Typography>}
+                  {selected.phone3 && <Typography fontSize="14px">Телефон: {selected.phone3}</Typography>}
+                  {selected.phone4 && <Typography fontSize="14px">Телефон: {selected.phone4}</Typography>}
+                  {selected.email1 && <Typography fontSize="14px">Эл. почта: {selected.email1}</Typography>}
+                  {selected.email2 && <Typography fontSize="14px">Эл. почта: {selected.email2}</Typography>}
+                  {selected.website && <Typography fontSize="14px">Вебсайт: {selected.website}</Typography>}
+                </Box>
+                <Box my={2} sx={{ width: { xs: '100%', sm: '70%' }}}>
+                  <Typography fontSize="24px">Типы товаров</Typography>
+                  {selected.typeOfProducts.map((category) => (
+                    <BaseLink key={category.id} to={routerService.catalog({ categoryId: category.id })} hoverColor>
+                      <Box py={1} sx={{ borderBottom: `1px dashed ${COLORS.gray.lighter}`}}>
+                        {category.name}
+                      </Box>
+                    </BaseLink>
+                  ))}
+                </Box>
+              </Flex>
             </>
           )}
           {!selected && (

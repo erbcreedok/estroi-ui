@@ -13,7 +13,7 @@ export const Footer = (props) => {
     <Wrapper {...props}>
       <Container sx={{ my: 3 }} maxWidth="xl">
         <Typography fontSize={18}>E-Stroi.kz</Typography>
-        <Typography>"<Link to="/" target="_blank">E-stroi.kz</Link>" - онлайн каталог спецтоваров</Typography>
+        <Typography>"<Link to="/" target="_blank">E-stroi.kz</Link>" - Самый удобный сайт по поиску стройматериалов в Казахстане</Typography>
       </Container>
     </Wrapper>
   )
